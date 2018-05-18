@@ -6,7 +6,9 @@ import json
 url = 'http://www.arielle.com.br/produtos/listar?infinite=true'
 
 lista_url_produto = []
-#arq_json = open('Arielle.json', 'w', encoding='utf-8')
+lis_ta = []
+
+arq_json = open('Arielle.json', 'w', encoding='utf-8')
 
 for i in range(0, 7):
 
@@ -22,9 +24,10 @@ for i in range(0, 7):
         url_produto = url_p.a.get('href')
         lista_url_produto.append(url_produto)
 
-responde = raspagens(lista_url_produto)
 
-data_json = json.dumps(responde)
+responde = raspagens(lista_url_produto, lis_ta)
+
+data_json = json.dumps(responde, ensure_ascii=False)
 
 arq_json = open('Arielle.json', 'a', encoding='utf-8')
 arq_json.write(data_json)
