@@ -1,11 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 
-def raspagens (lista_url_produto):
+def raspagens (lista_url_produto, lis_ta):
     
     d = {}
     i = 0
-    lista = []
     lista_faces = []
     lista_vs_amb = []
     lista_extras = []
@@ -14,9 +13,7 @@ def raspagens (lista_url_produto):
     for i in range(0, len(lista_url_produto)):
 
         url_prod = lista_url_produto[i]
-
         r = requests.get(url_prod)
-
         soup = BeautifulSoup(r.text, 'lxml')
 
         nome_produto = soup.h2.get_text()
@@ -33,14 +30,8 @@ def raspagens (lista_url_produto):
             superf = superf.find_next_sibling()
             superf = superf.find_next_sibling()
             superf = superf.find_next_sibling()
-        
-        superficie = superf.h3.get_text()
-        superficie = superficie.replace('                                ', '')
-        superficie = superficie.replace('                            ', '')
-        superficie = superficie.replace('\n', '')
-        superficie = superficie.replace('                        ', '')
 
-        imag = soup.find_all('div', class_='imagem')
+            imag = soup.find_all('div', class_='imagem')
 
         for img in imag:
             imagem = img.div.get('ref')
@@ -203,46 +194,53 @@ def raspagens (lista_url_produto):
             peso_bruto_pallet_especial_exportacao = lista_extras[9]
             metros_quadrados_container = lista_extras[10]
             pallets_container = lista_extras[11]
-            
+
+            superficie = superf.h3.get_text()
+            superficie = superficie.replace('                                ', '')
+            superficie = superficie.replace('                            ', '')
+            superficie = superficie.replace('\n', '')
+            superficie = superficie.replace('                        ', '')
+
+            lista_faces.clear()
+            lista_vs_amb.clear()
+            lista_extras.clear()
+            d['url_produto'] = str(url_prod)
+            d['imagem'] = str(imagem)
+            d['nome_produto'] = str(nome_produto)
+            d['referencia'] = str(referencia)
+            d['formato'] = str(formato)
+            d['pei'] = str(pei)
+            d['local_uso'] = str(local_uso)
+            d['caracteristica_uso'] = str(caracteristica_uso)
+            d['classificacao_tonal'] = str(classificacao_tonal)
+            d['caracteristica_tonal'] = str(caracteristica_tonal)
+            d['impressao'] = str(impressao)
+            d['caracteristica_impressao'] = str(caracteristica_impressao)
+            d['resistencia'] = str(resistencia)
+            d['sentido_assentamento'] = str(sentido_assentamento)
+            d['quantidades_faces'] = str(quantidades_faces)
+            d['caracteristica_faces'] = str(caracteristica_faces)
+            d['superficie'] = str(superficie)
+            d['imagem_face_1'] = str(imagem_face_1)
+            d['imagem_face_2'] = str(imagem_face_2)
+            d['imagem_face_3'] = str(imagem_face_3)
+            d['imagem_face_4'] = str(imagem_face_4)
+            d['imagem_face_5'] = str(imagem_face_5)
+            d['imagem_face_6'] = str(imagem_face_6)
+            d['visualizador_ambiente'] = str(visualizador_ambiente)
+            d['area_caixa'] = str(area_caixa)
+            d['numero_pecas_caixa'] = str(numero_pecas_caixa)
+            d['espessura_pecas'] = str(espessura_pecas)
+            d['peso_bruto_caixa'] = str(peso_bruto_caixa)
+            d['metros_quadrados_pallet'] = str(metros_quadrados_pallet)
+            d['metros_quadrados_pallet_epecial_exportacao'] = str(metros_quadrados_pallet_epecial_exportacao)
+            d['caixas_pallet'] = str(caixas_pallet)
+            d['caixas_pallet_especial_exportacao'] = str(caixas_pallet_especial_exportacao)
+            d['peso_bruto_pallet'] = str(peso_bruto_pallet)
+            d['peso_bruto_pallet_especial_exportacao'] = str(peso_bruto_pallet_especial_exportacao)
+            d['metros_quadrados_container'] = str(metros_quadrados_container)
+            d['pallets_container'] = str(pallets_container)
+            lis_ta.append(str(d))
             break
-        lista_faces.clear()
-        lista_vs_amb.clear()
-        lista_extras.clear()
-        d['url_produto'] = str(url_prod)
-        d['imagem'] = str(imagem)
-        d['nome_produto'] = str(nome_produto)
-        d['referencia'] = str(referencia)
-        d['formato'] = str(formato)
-        d['pei'] = str(pei)
-        d['local_uso'] = str(local_uso)
-        d['caracteristica_uso'] = str(caracteristica_uso)
-        d['classificacao_tonal'] = str(classificacao_tonal)
-        d['caracteristica_tonal'] = str(caracteristica_tonal)
-        d['impressao'] = str(impressao)
-        d['caracteristica_impressao'] = str(caracteristica_impressao)
-        d['resistencia'] = str(resistencia)
-        d['sentido_assentamento'] = str(sentido_assentamento)
-        d['quantidades_faces'] = str(quantidades_faces)
-        d['caracteristica_faces'] = str(caracteristica_faces)
-        d['superficie'] = str(superficie)
-        d['imagem_face_1'] = str(imagem_face_1)
-        d['imagem_face_2'] = str(imagem_face_2)
-        d['imagem_face_3'] = str(imagem_face_3)
-        d['imagem_face_4'] = str(imagem_face_4)
-        d['imagem_face_5'] = str(imagem_face_5)
-        d['imagem_face_6'] = str(imagem_face_6)
-        d['visualizador_ambiente'] = str(visualizador_ambiente)
-        d['area_caixa'] = str(area_caixa)
-        d['numero_pecas_caixa'] = str(numero_pecas_caixa)
-        d['espessura_pecas'] = str(espessura_pecas)
-        d['peso_bruto_caixa'] = str(peso_bruto_caixa)
-        d['metros_quadrados_pallet'] = str(metros_quadrados_pallet)
-        d['metros_quadrados_pallet_epecial_exportacao'] = str(metros_quadrados_pallet_epecial_exportacao)
-        d['caixas_pallet'] = str(caixas_pallet)
-        d['caixas_pallet_especial_exportacao'] = str(caixas_pallet_especial_exportacao)
-        d['peso_bruto_pallet'] = str(peso_bruto_pallet)
-        d['peso_bruto_pallet_especial_exportacao'] = str(peso_bruto_pallet_especial_exportacao)
-        d['metros_quadrados_container'] = str(metros_quadrados_container)
-        d['pallets_container'] = str(pallets_container)
-        lista.append(d)
-    return lista
+         
+    return lis_ta
