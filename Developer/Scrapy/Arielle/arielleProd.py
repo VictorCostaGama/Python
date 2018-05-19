@@ -240,7 +240,7 @@ def raspagens (lista_url_produto, lis_ta):
             d['peso_bruto_pallet_especial_exportacao'] = str(peso_bruto_pallet_especial_exportacao)
             d['metros_quadrados_container'] = str(metros_quadrados_container)
             d['pallets_container'] = str(pallets_container)
-            lis_ta.append(str(d))
+            lis_ta.append(dict(d))
             break
          
     return lis_ta
