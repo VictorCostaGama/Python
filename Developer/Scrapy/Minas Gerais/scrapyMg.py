@@ -16,6 +16,7 @@ def coletar_url(re_gex, regex):
     
     return regex
 
+
 def raspagem(regex, lista, dicionario):
     
     for i in range(0, len(regex)):
