@@ -13,8 +13,6 @@ def coletar_url(re_gex, regex):
             pass
         else:
             regex.append(r[i])
-    
-    return regex
 
 
 def raspagem(regex, lista, dicionario):
@@ -68,9 +66,7 @@ def raspagem(regex, lista, dicionario):
         lista.append(dicionario)
             
         time.sleep(1)
-        
-    return lista
-        
+            
 
 url = 'http://mg.gov.br/cidadao'
 
@@ -94,5 +90,5 @@ for i in range(0, len(regex)):
     regex[i] = url_parcial + regex[i]
 
 raspagem(regex, lista, dicionario)
-        
+
 print(lista)
